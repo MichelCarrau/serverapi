@@ -7,6 +7,7 @@ const dbconfig = {
     password: config.mysql.password,
     database: config.mysql.database
 }
+console.log(dbconfig) //concolelog y nuestro objeto
 
 
 function conMysql() {
@@ -31,4 +32,9 @@ function conMysql() {
 
 }
 
-conMysql()
+//conMysql()
+
+function todos(tabla) {
+    const resp = 'Estás consultando la tabla de: ' + tabla
+    return(resp)
+}
