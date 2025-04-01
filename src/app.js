@@ -18,13 +18,7 @@ app.use('/api/usuarios', usuarios);
 app.use('/api/clientes', function(req, res) {
     res.send('Hola desde clientes')
 });
- 
-const configmysql = {
-    host: process.env.MYSQL_BD,
-    user: process.env.MYSQL_BD,
-    password: process.env.MYSQL_PW,
-    database: process.env.MYSQL_BD
-}
+
 
 // exportar el app
 module.exports = app;

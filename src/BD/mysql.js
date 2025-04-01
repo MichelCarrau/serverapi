@@ -1,27 +1,34 @@
+const mysql = require('mysql');
+const config = require('../config');
 
-
-function todos (tabla){
-    const mensaje = 'Soy consulta todos y esta es la tabla a consultar:'+tabla
-return mensaje
+const dbconfig = {
+    host: config.mysql.host,
+    user: config.mysql.user,
+    password: config.mysql.password,
+    database: config.mysql.database
 }
 
-function uno (tabla,id){
+
+function conMysql() {
+    conexion = mysql.createConnection(dbconfig);
+
+    conexion.connect((err) => {
+        if (err) {
+            console.log('[bd err]', err);
+            setTimeout(conMysql, 200)
+        } else {
+            console.log('BD conectado')
+        }
+    })
+    conexion.on('error',err =>{
+        console.log('[bd err]', err);
+        if(err.code ==='PROTOCOL_CONNECTION_LOST' ){
+            conMysql()
+        }else{
+            throw err;
+        }
+    })
 
 }
 
-function agregar (tabla,data){
-    const datos = {
-        tabla:tabla,
-        data:data,
-    }
-    return (datos)
-
-}
-
-function eliminar (tabla,id){
-
-}
-
-module.exports={
-    todos,uno,agregar,eliminar
-}
+conMysql()
