@@ -13,9 +13,15 @@ const controlador = require('./controlador');
 //    }
 //})
 
-router.get('/', function (req,res){
-    const consult =controlador.todos()
-    respuesta.success(req,res,200,consult)
+router.get('/', async function (req,res){
+  try {
+    const item = await controlador.todos()
+    respuesta.success(req,res,200,item)
+  } catch (error){
+    respuesta.error(req,res,500,error)
+  } 
+  //const consult =controlador.todos()
+    //respuesta.success(req,res,200,consult)
 })
 
 router.post('/agregar',function(req,res){

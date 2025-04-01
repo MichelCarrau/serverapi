@@ -32,9 +32,26 @@ function conMysql() {
 
 }
 
-//conMysql()
+conMysql()
 
-function todos(tabla) {
-    const resp = 'Estás consultando la tabla de: ' + tabla
-    return(resp)
+//function todos(tabla) {
+  //  const resp = 'Estás consultando la tabla de: ' + tabla
+   // return(resp)
+
+
+function todos (tabla){
+    return new Promise ((resolve, reeject)=>{
+        conexion.query(`SELECT *FROM ${tabla}`, (error, result) => {
+            return error ? reeject(error) : resolve(result)
+
+        })
+    })
+}
+
+function uno (tabla, id){
+
+}
+
+module.exports={
+    todos  //No se estaba exportando
 }
