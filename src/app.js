@@ -1,32 +1,30 @@
 const express = require('express');
-const config = require ('./config');
+const config = require('./config');
 const clientes = require('./modulos/clientes/rutas');
+const usuarios = require('./modulos/usuarios/usuarios');
 const app = express();
 
-//configuración
+app.use(express.json());
+
+
+// configuración
 app.set('port', config.app.port);
 
-//Rutas
-app.use('/api/clientes',clientes);
+// rutas
+app.use('/api/clientes', clientes);
+app.use('/api/usuarios', usuarios);
 
-app.use('/api/usuarios',usuarios);
 
-app.use('')
+app.use('/api/clientes', function(req, res) {
+    res.send('Hola desde clientes')
+});
+ 
+const configmysql = {
+    host: process.env.MYSQL_BD,
+    user: process.env.MYSQL_BD,
+    password: process.env.MYSQL_PW,
+    database: process.env.MYSQL_BD
+}
 
-const alumno ={"nombre":"Marce", "cal":"8.9", "nacionalidad":"MX"}
-
-//app.get('/api/alumno',function(req,res){
-//    res.json(alumno)
-
-app.use('/api/clientes', function(req,res){
-    res.send('Hola soy cliente')
-})
-
-app.use('/api/usuarios', function(req,res){
-    res.send('Hola soy usuarios')
-})
-
-//app.use('/api/eliminar', function(req,res){
-//    res.send('Hola eliminaste un alumno')
-
+// exportar el app
 module.exports = app;
