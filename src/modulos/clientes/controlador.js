@@ -7,16 +7,20 @@ function todos (){
 
 }
 
-function uno (){
-
+function uno (id){
+return bd.uno(TABLA,id )
 }
 
 function agregar (data){
 return bd.agregar(TABLA,data) //Agregar datos
 }
 
-function eliminar (){
+function agregar (body){
+    return bd.agregar(TABLA, body)
+}
 
+function eliminar (body){
+    return bd.eliminar(TABLA,body)
 }
 
 module.exports={
