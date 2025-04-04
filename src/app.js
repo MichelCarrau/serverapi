@@ -3,7 +3,12 @@ const config = require('./config');
 const clientes = require('./modulos/clientes/rutas');
 const usuarios = require('./modulos/usuarios/usuarios');
 const app = express();
+const cors = require('cors');
+const mysqlUsuario = require('./BD/mysqlUsuario');
+mysqlUsuario.conMysql(); // 🔧 Llamar para inicializar la conexión
 
+
+app.use(cors());
 app.use(express.json());
 
 
@@ -14,10 +19,6 @@ app.set('port', config.app.port);
 app.use('/api/clientes', clientes);
 app.use('/api/usuarios', usuarios);
 
-
-app.use('/api/clientes', function(req, res) {
-    res.send('Hola desde clientes')
-});
 
 
 // exportar el app

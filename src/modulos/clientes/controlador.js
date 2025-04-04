@@ -12,17 +12,22 @@ return bd.uno(TABLA,id )
 }
 
 function agregar (data){
-return bd.agregar(TABLA,data) //Agregar datos
+return bd.agregar(TABLA,data)
 }
 
-function agregar (body){
-    return bd.agregar(TABLA, body)
+function insertar(data) {
+    return bd.insertar(TABLA, data);
 }
+
+function actualizar(data) {
+    return bd.actualizar(TABLA, data);
+}
+
 
 function eliminar (body){
     return bd.eliminar(TABLA,body)
 }
 
 module.exports={
-    todos,uno,agregar,eliminar
+    todos,uno,agregar,eliminar,actualizar,insertar
 }

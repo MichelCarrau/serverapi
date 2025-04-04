@@ -60,4 +60,51 @@ router.post('/eliminar', async function (req, res) {
   }
 })
 
+router.post('/actualizar', async (req, res) => {
+  try {
+    if (!req.body.id) {
+      return respuesta.error(req, res, 400, 'El id es requerido para actualizar');
+    }
+    await controlador.actualizar(req.body);
+    respuesta.success(req, res, 200, 'Cliente actualizado');
+  } catch (error) {
+    respuesta.error(req, res, 500, error.message);
+  }
+});
+
+
+router.post('/insertar', async function (req, res) {
+  try {
+    if (req.body.id != 0) {
+      return respuesta.error(req, res, 400, 'Para insertar, el id debe ser 0');
+    }
+    const resultado = await controlador.agregar(req.body);
+    respuesta.success(req, res, 200, 'Datos insertados correctamente');
+  } catch (error) {
+    respuesta.error(req, res, 500, 'Error al insertar datos', error);
+  }
+});
+
+
+router.post('/login_user', async (req, res) => {
+  const { email, password } = req.body;  // El servidor espera 'email' y 'password'
+
+  // Verifica si ambos campos están presentes
+  if (!email || !password) {
+    return res.status(400).json({ message: "Correo electrónico y contraseña son requeridos" });
+  }
+
+  // Aquí va tu lógica para verificar el email y la contraseña
+  // Ejemplo:
+  const usuario = await controlador.obtenerUsuarioPorEmail(email);
+  if (!usuario || usuario.password !== password) {
+    return res.status(401).json({ message: "Correo electrónico o contraseña incorrectos" });
+  }
+
+  // Si todo es correcto, envía una respuesta exitosa
+  res.status(200).json({ message: "Login exitoso", usuario });
+});
+
+
+
 module.exports = router
